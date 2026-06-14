@@ -1,8 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { FiTrash2, FiPlus, FiMinus, FiArrowLeft } from "react-icons/fi";
-// Import your remove or update actions here if you have them later, e.g.:
-// import { remove, updateQuantity } from "../redux/features/orderSlice";
+import { add, sub, removeItem } from "../redux/features/orderSlice";
 
 const Cart = () => {
   const orders = useSelector((state) => state.order.orderItems);
@@ -29,17 +28,17 @@ const Cart = () => {
 
         {/* Main Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-          
+
           {/* Left Column: List of Items */}
           <div className="lg:col-span-2 space-y-4">
             {orders.map((item) => (
               <div key={item.id} className="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 flex flex-col sm:flex-row gap-6 items-center justify-between">
-                
+
                 {/* Item Details Block */}
                 <div className="flex items-center gap-4 w-full sm:w-auto">
-                  <img 
-                    src={item.image} 
-                    alt={item.name} 
+                  <img
+                    src={item.image}
+                    alt={item.name}
                     className="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-xl border border-gray-100 shrink-0"
                   />
                   <div>
@@ -57,16 +56,20 @@ const Cart = () => {
 
                 {/* Actions Block: Quantity Control & Delete */}
                 <div className="flex items-center justify-between sm:justify-end gap-8 w-full sm:w-auto border-t sm:border-t-0 pt-4 sm:pt-0 border-gray-100">
-                  
+
                   {/* Quantity Counter */}
                   <div className="flex items-center gap-3 bg-gray-50 px-3 py-1.5 rounded-xl border border-gray-200">
-                    <button className="text-gray-500 hover:text-black transition-colors p-1">
+                    <button
+                      onClick={() => dispatch(sub(item))}
+                      className="text-gray-500 hover:text-black transition-colors p-1">
                       <FiMinus size={16} />
                     </button>
                     <span className="font-bold text-gray-800 text-sm min-w-[20px] text-center">
                       {item.quantity}
                     </span>
-                    <button className="text-gray-500 hover:text-black transition-colors p-1">
+                    <button
+                      onClick={() => dispatch(add(item))}
+                      className="text-gray-500 hover:text-black transition-colors p-1">
                       <FiPlus size={16} />
                     </button>
                   </div>
@@ -76,7 +79,9 @@ const Cart = () => {
                     <span className="font-extrabold text-gray-900 min-w-[80px] text-right hidden sm:block">
                       रु {item.caloriesPerServing * (item.quantity)}
                     </span>
-                    <button className="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-xl hover:bg-red-50">
+                    <button 
+                    onClick={()=>dispatch(removeItem(item))}
+                    className="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-xl hover:bg-red-50">
                       <FiTrash2 size={20} />
                     </button>
                   </div>
@@ -92,7 +97,7 @@ const Cart = () => {
             <h2 className="text-xl font-bold text-gray-900 mb-6 pb-4 border-b border-gray-100">
               Order Summary
             </h2>
-            
+
             <div className="space-y-4 mb-6">
               <div className="flex justify-between text-sm font-medium text-gray-500">
                 <span>Total Items</span>
