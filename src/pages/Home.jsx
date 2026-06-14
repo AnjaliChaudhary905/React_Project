@@ -1,4 +1,5 @@
 //import React from 'react'
+// import { useEffect, useState } from "react";
 import {
   FiArrowRight,
   FiArrowRightCircle,
@@ -6,8 +7,28 @@ import {
 } from "react-icons/fi";
 import { MdLocationPin } from "react-icons/md";
 import { FaPhoneAlt } from "react-icons/fa";
+// import { getRecipes } from "../components/actions/recipes";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate()
+  // const [recipes, setRecipes] = useState([])
+
+  // const fetchRecipes = async () => {
+  //   try {
+  //     const res = await getRecipes();
+  //     setRecipes(res.recipes)
+  //   }
+  //   catch (error) {
+  //     console.log(error)
+  //     throw error
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   fetchRecipes();
+  // }, [])
+
   return (
     <div>
       <section className="grid grid-cols-1 md:grid-cols-2 min-h-200">
@@ -39,7 +60,9 @@ const Home = () => {
             </span>
             of momo available for you
           </p>
-          <button className="bg-[#0C6967] hover:bg-[#094f4e] rounded-full py-5 px-10 text-white flex items-center mt-10 gap-2 cursor-pointer">
+          <button 
+          onClick={()=>navigate("/menu")}
+          className="bg-[#0C6967] rounded-full py-5 px-10 text-white flex items-center mt-10 gap-2 active:scale-105">
             Explore Food Menu
             <FiArrowRight />
           </button>
