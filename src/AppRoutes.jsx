@@ -7,6 +7,7 @@ import {
   Services,
   PageNotFound,
   AllergyAdvice,
+  MenuDetails,Cart
 } from "./pages";
 
 const AppRoutes = () => {
@@ -17,6 +18,8 @@ const AppRoutes = () => {
       <Route path="/contact" element={<Contact />} />
       <Route path="/services" element={<Services />} />
       <Route path="/menu" element={<Menu />} />
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/menu/:id" element={<MenuDetails />} />
       <Route path="/allergy-advice" element={<AllergyAdvice />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>

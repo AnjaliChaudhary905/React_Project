@@ -1,11 +1,32 @@
 //import React from 'react'
+import { useEffect, useState } from "react";
 import {
   FiArrowRight,
   FiArrowRightCircle,
   FiArrowLeftCircle,
 } from "react-icons/fi";
+import { getRecipes } from "../components/actions/recipes";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate()
+  const [recipes, setRecipes] = useState([])
+
+  const fetchRecipes = async () => {
+    try {
+      const res = await getRecipes();
+      setRecipes(res.recipes)
+    }
+    catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  useEffect(() => {
+    fetchRecipes();
+  }, [])
+
   return (
     <div>
       <section className="grid grid-cols-1 md:grid-cols-2 min-h-200">
@@ -37,7 +58,9 @@ const Home = () => {
             </span>
             of momo available for you
           </p>
-          <button className="bg-[#0C6967] rounded-full py-5 px-10 text-white flex items-center mt-10 gap-2">
+          <button 
+          onClick={()=>navigate("/menu")}
+          className="bg-[#0C6967] rounded-full py-5 px-10 text-white flex items-center mt-10 gap-2 active:scale-105">
             Explore Food Menu
             <FiArrowRight />
           </button>
@@ -101,18 +124,30 @@ const Home = () => {
         </div>
         <div className="flex justify-center items-center gap-6 mt-6 p-4">
           <div className="border-2 border-[#EBEDF0] hover:border-black font-semibold rounded-full py-4 px-12 transition-colors">
-            Buff
+            Pizza
           </div>
           <div className="border-2 border-[#EBEDF0] hover:border-black font-semibold rounded-full py-4 px-12 transition-colors">
-            Chicken
+            Stir-fry
           </div>
           <div className="border-2 border-[#EBEDF0] hover:border-black font-semibold rounded-full py-4 px-12 transition-colors">
-            Veg
+            cookies
           </div>
         </div>
         <div className="flex justify-center items-center gap-11 mt-10">
           <FiArrowLeftCircle className="text-3xl mb-10" />
-          <div className="text-center">
+          {recipes.map((recipe,index) => (
+            <div key={index}
+            className="text-center">
+            <img className="w-65 h-47.25 rounded-2xl"
+             src={recipe.image}
+              alt="buffmomo" />
+            <div className="text-[25px] font-bold mt-10">{recipe.name}</div>
+            <div className="text-[20px]">
+              रु
+              <span className="text-[#D95103] text-[31px] font-bold">{recipe.caloriesPerServing}</span>
+            </div>
+          </div>))}
+          {/* <div className="text-center">
             <img className="w-65 h-47.25" src="buffmomo.png" alt="buffmomo" />
             <div className="text-[25px] font-bold mt-10">Buff Momo</div>
             <div className="text-[20px]">
@@ -139,11 +174,12 @@ const Home = () => {
               रु
               <span className="text-[#D95103] text-[31px] font-bold">200</span>
             </div>
-          </div>
+          </div> */}
           <FiArrowRightCircle className="text-3xl mb-10" />
         </div>
         <div className="flex justify-center items-center p-2">
-          <button className="bg-[#0C6967] rounded-full py-5 px-10 text-white flex items-center mt-8 gap-2">
+          <button onClick={()=>navigate("/menu")}
+          className="bg-[#0C6967] rounded-full py-5 px-10 text-white flex items-center mt-8 gap-2 active:scale-105">
             Explore Our menu
             <FiArrowRight />
           </button>
@@ -157,19 +193,23 @@ const Home = () => {
         <div className="relative">
           <img className="h-190 w-full object-cover" src="video-bg.png" alt="video-bg" />
           <div className="absolute inset-0 bg-black opacity-25"></div>
-          <div className="absolute top-[32%] left-[31.5%]">
-            <div className="text-center">
-              <div className="text-white text-[49px] font-bold">
-                Process behind the making
+          <div className="flex justify-center items-center">
+
+
+            <div className="absolute top-[32%]">
+              <div className="text-center">
+                <div className="text-white text-[49px] font-bold">
+                  Process behind the making
+                </div>
+                <div className=" text-white text-[25px]">
+                  See how only chefs cooks only the best momos
+                </div>
               </div>
-              <div className=" text-white text-[25px]">
-                See how only chefs cooks only the best momos
+              <div className="flex justify-center items-center">
+                <button className="bg-[#0C6967] rounded-full py-5 px-10 text-white flex items-center mt-14 gap-2">
+                  <img className="w-8 h-8" src="video-icon.png" alt="video-icon" /> Watch the Video
+                </button>
               </div>
-            </div>
-            <div className="flex justify-center items-center">
-              <button className="bg-[#0C6967] rounded-full py-5 px-10 text-white flex items-center mt-14 gap-2">
-                <img className="w-8 h-8" src="video-icon.png" alt="video-icon" /> Watch the Video
-              </button>
             </div>
           </div>
         </div>

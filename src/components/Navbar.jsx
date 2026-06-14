@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { FaFacebook } from "react-icons/fa6";
 import { FaInstagramSquare } from "react-icons/fa";
 import { AiFillTikTok } from "react-icons/ai";
+import { FaCartShopping } from "react-icons/fa6";
 
 const Navbar = () => {
   const iconClass =
@@ -44,6 +45,11 @@ const Navbar = () => {
         <button className="px-5.5 py-3 rounded-full text-white bg-[#D95103] text-[14px] flex items-center hover:bg-amber-700 cursor-pointer">
           Contact us
         </button>
+
+        <NavLink to="/cart">
+          <FaCartShopping size={30} className="hover:text-amber-600"/>
+        </NavLink>
+
       </div>
     </header>
   );
