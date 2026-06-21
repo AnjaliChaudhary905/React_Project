@@ -1,14 +1,15 @@
-import AppRoutes from "./AppRoutes"
-import Navbar from "./components/Navbar"
-
+import AppRoutes from "./AppRoutes";
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   return (
     <>
-        <Navbar/>
-        <AppRoutes/>
+      <Navbar />
+      <AppRoutes />
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

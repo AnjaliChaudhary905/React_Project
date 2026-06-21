@@ -3,11 +3,14 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { FaFacebook } from "react-icons/fa6";
 import { FaInstagramSquare } from "react-icons/fa";
 import { AiFillTikTok } from "react-icons/ai";
-import { HiMenu, HiX } from "react-icons/hi"; 
+import { HiMenu, HiX } from "react-icons/hi";
+import { IoCartOutline } from "react-icons/io5";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const order = useSelector((state) => state.order.orderList);
 
   const iconClass =
     "text-3xl h-8 w-8 text-gray-500 hover:text-gray-600 cursor-pointer";
@@ -19,7 +22,7 @@ const Navbar = () => {
 
   return (
     <header className="bg-[#FFFFFF] border-b border-[#00000026] shadow sticky z-50 top-0 left-0 w-full">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center h-20">
         <div
           onClick={() => {
             navigate("/");
@@ -27,7 +30,7 @@ const Navbar = () => {
           }}
           className="flex items-center gap-2 cursor-pointer py-4"
         >
-          <img className="w-8 h-8" src="logo.png" alt="logo" />
+          <img className="w-8 h-8" src="/logo.png" alt="logo" />
           <h5 className="font-semibold text-[#0C6967] text-[25px]">momos</h5>
         </div>
 
@@ -63,9 +66,17 @@ const Navbar = () => {
             <AiFillTikTok className={iconClass} />
             <FaInstagramSquare className={iconClass} />
           </div>
-          <button className="px-5.5 py-3 rounded-full text-white bg-[#D95103] text-[14px] flex items-center hover:bg-amber-700 cursor-pointer transition-colors">
+          <NavLink className="px-5.5 py-3 rounded-full text-white bg-[#D95103] text-[14px] flex items-center hover:bg-amber-700 cursor-pointer transition-colors">
             Contact us
-          </button>
+          </NavLink>
+          <NavLink to={"/cart"} className={"relative"}>
+            <IoCartOutline className="h-7 w-7 text-black hover:text-amber-700 cursor-pointer transition-colors" />
+            {order.length > 0 && (
+              <span className="px-2 py-1 text-[8px] bg-red-600 text-white rounded-full absolute -top-2 -right-2">
+                {order.length}
+              </span>
+            )}
+          </NavLink>
         </div>
       </div>
 
@@ -109,10 +120,18 @@ const Navbar = () => {
               <FaFacebook className={iconClass} />
               <AiFillTikTok className={iconClass} />
               <FaInstagramSquare className={iconClass} />
+              <NavLink to={"/cart"} className={"relative"}>
+                <IoCartOutline className="h-7 w-7 text-black hover:text-amber-700 cursor-pointer transition-colors" />
+                {order.length > 0 && (
+                  <span className="px-2 py-1 text-[8px] bg-red-600 text-white rounded-full absolute -top-2 -right-2">
+                    {order.length}
+                  </span>
+                )}
+              </NavLink>
             </div>
-            <button className="w-full justify-center px-5.5 py-3 rounded-full text-white bg-[#D95103] text-[14px] flex items-center hover:bg-amber-700 cursor-pointer transition-colors">
+            <NavLink className="w-full justify-center px-5.5 py-3 rounded-full text-white bg-[#D95103] text-[14px] flex items-center hover:bg-amber-700 cursor-pointer transition-colors">
               Contact us
-            </button>
+            </NavLink>
           </div>
         </div>
       </div>

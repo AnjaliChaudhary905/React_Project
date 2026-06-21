@@ -7,7 +7,10 @@ import {
   Services,
   PageNotFound,
   AllergyAdvice,
+  MenuDetail,
+  Cart
 } from "./pages";
+import Payment from "./pages/Payment";
 
 const AppRoutes = () => {
   return (
@@ -18,6 +21,10 @@ const AppRoutes = () => {
       <Route path="/services" element={<Services />} />
       <Route path="/menu" element={<Menu />} />
       <Route path="/allergy-advice" element={<AllergyAdvice />} />
+      <Route path="/menu-detail/:id" element={<MenuDetail />} />
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/payment" element={<Payment />} />
+
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
